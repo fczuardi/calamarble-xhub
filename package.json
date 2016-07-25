@@ -1,6 +1,6 @@
 {
   "name": "calamarble-xhub",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "./src/index.js",
   "scripts": {
     "start": "NODE_DEBUG=dev babel-node ./src/index.js",
