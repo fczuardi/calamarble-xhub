@@ -10,7 +10,8 @@
   },
   "babel": {
     "plugins": [
-      "transform-es2015-modules-commonjs"
+      "transform-es2015-modules-commonjs",
+      "transform-object-rest-spread"
     ]
   },
   "eslintConfig": {
@@ -19,6 +20,7 @@
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.11.5",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "eslint-config-calamar": "^2.1.1",
     "npm-scripts-info": "^0.3.6"
   }
