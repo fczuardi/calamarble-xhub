@@ -1,10 +1,12 @@
 {
   "name": "calamarble-xhub",
+  "description": "xhub signature verification for POST requests from facebook",
   "version": "0.1.4",
   "main": "./src/index.js",
   "scripts": {
     "start": "NODE_DEBUG=dev babel-node ./src/index.js",
     "build:npm": "babel --ignore node_modules,dist --out-dir ./dist/npm .",
+    "postbuild:npm": "cp package.json dist/npm/.",
     "publish:npm": "npm run build:npm && npm publish dist/npm",
     "ppp": "npm version patch && git push && git push --tags && npm run publish:npm"
   },
@@ -24,8 +26,22 @@
     "eslint-config-calamar": "^2.1.1",
     "npm-scripts-info": "^0.3.6"
   },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fczuardi/calamarble-xhub.git"
-  }
+  },
+  "keywords": [
+    "calamar",
+    "calamars",
+    "xhub",
+    "aws",
+    "claudia"
+  ],
+  "author": "Fabricio C Zuardi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fczuardi/calamarble-xhub/issues"
+  },
+  "homepage": "https://github.com/fczuardi/calamarble-xhub#readme"
 }
