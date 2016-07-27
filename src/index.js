@@ -7,7 +7,12 @@ const signSha1 = (secret, msg) =>
 const apiEndpoint = config => (req, res) => {
     const rawBody = req.rawBody || JSON.stringify(req.body);
     const xHubSignature = req.headers['X-Hub-Signature'];
-    const serverSignature = signSha1(config.xHubSecret, rawBody);
+    let serverSignature;
+    try {
+        serverSignature = signSha1(config.xHubSecret, rawBody);
+    } catch (e) {
+        serverSignature = e.message;
+    }
     const result = {
         ...req.headers,
         'my-debug-header': serverSignature
