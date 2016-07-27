@@ -10,6 +10,7 @@ const apiEndpoint = config => (req, res) => {
         ...req.headers,
         'my-debug-header': serverSignature
     };
+    console.log('---HI---', serverSignature, req.headers);
     return res ? res.send(result) : result;
 };
 
