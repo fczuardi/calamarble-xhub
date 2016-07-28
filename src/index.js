@@ -4,7 +4,7 @@ const defaultConfig = {
     xHubAlgo: 'sha1',
     xHubSecret: '',
     messages: {
-        wrongSignature: 'Signatures do no match.'
+        wrongSignature: 'X-Hub-Signatures do not match.'
     }
 }
 
