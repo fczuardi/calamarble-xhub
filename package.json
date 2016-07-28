@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_DEBUG=dev babel-node ./src/index.js",
     "build:npm": "babel --ignore node_modules,dist --out-dir ./dist/npm .",
-    "postbuild:npm": "cp package.json dist/npm/.",
+    "postbuild:npm": "cp *.json *.txt dist/npm/.",
     "publish:npm": "npm run build:npm && npm publish dist/npm",
     "ppp": "npm version patch && git push && git push --tags && npm run publish:npm"
   },
