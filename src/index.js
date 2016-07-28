@@ -14,7 +14,7 @@ const signature = (algo, secret, msg) =>
 const apiEndpoint = userConfig => (req, res) => {
     const config = {
         ...defaultConfig,
-        userConfig
+        ...userConfig
     };
     const rawBody = req.rawBody || JSON.stringify(req.body);
     const xHubSignature = req.headers['X-Hub-Signature'];
