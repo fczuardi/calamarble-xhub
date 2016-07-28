@@ -19,6 +19,7 @@ const apiEndpoint = config => (req, res) => {
     };
     console.log('serverSignature:', serverSignature);
     console.log('X-Hub-Signature', xHubSignature);
+    console.log('rawBody', rawBody);
     return res ? res.send(result) : result;
 };
 
