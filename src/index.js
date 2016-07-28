@@ -1,10 +1,21 @@
 import crypto from 'crypto';
 
+const defaultConfig = {
+    xHubAlgo: 'sha1',
+    xHubSecret: '',
+    messages: {
+        wrongSignature: 'Signatures do no match.'
+    }
+}
 
 const signature = (algo, secret, msg) =>
     crypto.createHmac(algo, secret).update(msg).digest('hex');
 
-const apiEndpoint = config => (req, res) => {
+const apiEndpoint = userConfig => (req, res) => {
+    const config = {
+        ...defaultConfig,
+        userConfig
+    };
     const rawBody = req.rawBody || JSON.stringify(req.body);
     const xHubSignature = req.headers['X-Hub-Signature'];
     const serverSignature = signature(config.xHubAlgo, config.xHubSecret, rawBody);
@@ -16,11 +27,9 @@ const apiEndpoint = config => (req, res) => {
     console.log('serverSignature:', serverSignature);
     console.log('X-Hub-Signature', xHubSignature);
     console.log('rawBody', rawBody);
-    console.log('signature matches', signatureMatches);
     if (!signatureMatches) {
         console.error(config.messages.wrongSignature);
         throw config.messages.wrongSignature;
-        return false;
     }
     return res ? res.send(result) : result;
 };
