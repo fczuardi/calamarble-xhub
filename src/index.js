@@ -20,6 +20,7 @@ const apiEndpoint = config => (req, res) => {
     if (!signatureMatches) {
         console.error(config.messages.wrongSignature);
         throw config.messages.wrongSignature;
+        return false;
     }
     return res ? res.send(result) : result;
 };
