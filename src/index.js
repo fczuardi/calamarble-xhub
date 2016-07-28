@@ -16,7 +16,7 @@ const apiEndpoint = config => (req, res) => {
     console.log('serverSignature:', serverSignature);
     console.log('X-Hub-Signature', xHubSignature);
     console.log('rawBody', rawBody);
-    consolr.log('signature matches', signatureMatches);
+    console.log('signature matches', signatureMatches);
     if (!signatureMatches) {
         console.error(config.messages.wrongSignature);
         throw config.messages.wrongSignature;
