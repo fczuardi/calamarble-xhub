@@ -1,7 +1,7 @@
 {
   "name": "calamarble-xhub",
   "description": "xhub signature verification for POST requests from facebook",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "main": "./src/index.js",
   "scripts": {
     "start": "NODE_DEBUG=dev babel-node ./src/index.js",
