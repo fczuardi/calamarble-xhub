@@ -17,7 +17,7 @@
     "userArn" : "$context.identity.userArn"
   },
   "v": "2",
-  "rawBody": "$util.escapeJavaScript($input.body)",
+  "rawBody": "$util.escapeJavaScript($input.body).replace("\'", "'")",
   #set ($type=$input.params().header.get('Content-Type'))
   #if($type.contains(";"))
 	#set ($type=$type.split(";")[0])
