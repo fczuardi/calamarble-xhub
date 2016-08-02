@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_DEBUG=dev babel-node ./src/index.js",
     "build:npm": "babel --ignore node_modules,dist --out-dir ./dist/npm .",
-    "postbuild:npm": "cp *.json dist/npm/.",
+    "postbuild:npm": "cp *.json *.md dist/npm/.",
     "publish:npm": "npm run build:npm && npm publish dist/npm",
     "ppp": "npm version patch && git push && git push --tags && npm run publish:npm",
     "mpp": "npm version minor && git push && git push --tags && npm run publish:npm"
@@ -27,7 +27,9 @@
     "eslint-config-calamar": "^2.1.1",
     "npm-scripts-info": "^0.3.6"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tsscmp": "^1.0.5"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fczuardi/calamarble-xhub.git"
