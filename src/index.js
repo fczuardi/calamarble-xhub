@@ -17,7 +17,7 @@ const apiEndpoint = userConfig => (req, res) => {
         ...defaultConfig,
         ...userConfig
     };
-    const rawBody = req.rawBody || JSON.stringify(req.body);
+    const rawBody = req.rawBody || req.body;
     const headers = req.headers;
     const xHubSignature = headers['X-Hub-Signature'] || headers['x-hub-signature'];
     const serverSignature = signature(config.xHubAlgo, config.xHubSecret, rawBody);
