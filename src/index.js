@@ -24,7 +24,7 @@ const signatureMatches = (config, req) => {
     const xHubSignature = headers['X-Hub-Signature'] || headers['x-hub-signature'];
     const headerSignature = xHubSignature.split('=')[1];
     return verifySignature(
-        config.xHubAlgo, config.xHubSecret, headerSignature, rawBody
+        config.algo, config.secret, headerSignature, rawBody
     );
 };
 
