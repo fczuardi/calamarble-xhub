@@ -19,18 +19,17 @@ const expressConfig = {
     }
 };
 const xHubConfig = {
-    xHubAlgo: 'sha1',
-    xHubSecret: 'MY_APP_SECRET',
+    algo: 'sha1',
+    secret: 'MY_APP_SECRET',
     messages: {
         wrongSignature: 'Content signature don\'t match'
     }
 };
-const config = Object.assign({}, expressConfig, xHubConfig);
 const app = express();
-const postEndPoint = apiEndpoint(config);
+const postEndPoint = apiEndpoint(xHubConfig);
 app.use(bodyParser.raw({ type: 'application/json' }));
-app.post(config.postPath, postEndPoint);
-app.listen(config.port, () => console.log(`Server running on port ${config.port}`));
+app.post(expressConfig.postPath, postEndPoint);
+app.listen(expressConfig.port, () => console.log(`Server running on port ${expressConfig.port}`));
 
 ```
 
@@ -41,15 +40,40 @@ import ApiBuilder from 'claudia-api-builder';
 import { apiEndpoint as webhookPost} from 'calamarble-xhub';
 
 const api = new ApiBuilder();
-const config = {
-    xHubAlgo: 'sha1',
-    xHubSecret: 'MY_APP_SECRET',
+const xHubConfig = {
+    algo: 'sha1',
+    secret: 'MY_APP_SECRET',
     messages: {
         wrongSignature: 'Content signature don\'t match'
     }
 }
 
-api.post('/fbwebhook', webhookPost(config));
+api.post('/fbwebhook', webhookPost(xHubConfig));
+
+export { api as default };
+```
+
+### With claudia-api-builder and a callback
+
+```javascript
+import ApiBuilder from 'claudia-api-builder';
+import { apiEndpoint as webhookPost} from 'calamarble-xhub';
+
+const api = new ApiBuilder();
+const myCallback = (req, res) => {
+    return { foo: 'bar' };
+}
+const xHubConfig = {
+    algo: 'sha1',
+    secret: 'MY_APP_SECRET',
+    messages: {
+        wrongSignature: 'Content signature don\'t match'
+    },
+    next: myCallback
+}
+
+
+api.post('/fbwebhook', webhookPost(xHubConfig));
 
 export { api as default };
 ```

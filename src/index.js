@@ -1,9 +1,10 @@
 import crypto from 'crypto';
 import timingSafeCompare from 'tsscmp';
 
-const defaultConfig = {
-    xHubAlgo: 'sha1',
-    xHubSecret: '',
+const defaultXHubConfig = {
+    algo: 'sha1',
+    secret: '',
+    next: null,
     messages: {
         wrongSignature: 'X-Hub-Signatures do not match.'
     }
@@ -17,27 +18,30 @@ const verifySignature = (algo, secret, providedSignature, msg) => {
     );
 };
 
-const apiEndpoint = userConfig => (req, res) => {
-    const config = {
-        ...defaultConfig,
-        ...userConfig
-    };
+const signatureMatches = (config, req) => {
     const rawBody = req.rawBody || req.body;
     const headers = req.headers;
     const xHubSignature = headers['X-Hub-Signature'] || headers['x-hub-signature'];
     const headerSignature = xHubSignature.split('=')[1];
-    const signatureMatches = verifySignature(
+    return verifySignature(
         config.xHubAlgo, config.xHubSecret, headerSignature, rawBody
     );
-    // console.log('serverSignature:', serverSignature);
-    // console.log('X-Hub-Signature', xHubSignature);
-    // console.log('rawBody', rawBody);
-    if (!signatureMatches) {
+};
+
+const apiEndpoint = userConfig => (req, res) => {
+    const config = {
+        ...defaultXHubConfig,
+        ...userConfig
+    };
+    if (!signatureMatches(config, req)) {
         console.error(config.messages.wrongSignature);
         throw config.messages.wrongSignature;
     }
-    const result = { success: true };
-    return res ? res.send(result) : result;
+    if (!config.cb) {
+        const result = { success: true };
+        return res ? res.send(result) : result;
+    }
+    return config.next(req, res);
 };
 
 export {
