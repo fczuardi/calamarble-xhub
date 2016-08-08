@@ -37,7 +37,7 @@ const apiEndpoint = userConfig => (req, res) => {
         console.error(config.messages.wrongSignature);
         throw config.messages.wrongSignature;
     }
-    if (!config.cb) {
+    if (!config.next) {
         const result = { success: true };
         return res ? res.send(result) : result;
     }
